@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Revenue Chart</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: false });
+
+        function updateChart() {
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+            const revenues = Array.from(rows).map(row => 
+                parseInt(row.querySelector('td:nth-child(2)').textContent) || 0
+            );
+
+            const chartCode = `
+                xychart-beta
+                title "Sales Revenue"
+                x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+                y-axis "Revenue (in $)" 4000 --> 11000
+                line [${revenues.join(', ')}]
+            `;
+
+            document.getElementById('chartContainer').innerHTML = `<div class="mermaid">${chartCode}</div>`;
+            mermaid.init();
+        }
+
+        document.getElementById('dataTable').addEventListener('input', (e) => {
+            if (e.target.tagName === 'TD' && e.target.cellIndex === 1) {
+                updateChart();
+            }
+        });
+
+        // Initial chart render
+        updateChart();
+    </script>
+    <style>
+        body { 
+            font-family: Arial; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td:nth-child(2) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Revenue Chart</h1>
+    
+    <table id="dataTable" contenteditable="true">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>January</td><td contenteditable="true">5000</td></tr>
+            <tr><td>February</td><td contenteditable="true">6000</td></tr>
+            <tr><td>March</td><td contenteditable="true">7500</td></tr>
+            <tr><td>April</td><td contenteditable="true">8200</td></tr>
+            <tr><td>May</td><td contenteditable="true">9500</td></tr>
+            <tr><td>June</td><td contenteditable="true">10500</td></tr>
+            <tr><td>July</td><td contenteditable="true">11000</td></tr>
+            <tr><td>August</td><td contenteditable="true">10200</td></tr>
+            <tr><td>September</td><td contenteditable="true">9200</td></tr>
+            <tr><td>October</td><td contenteditable="true">8500</td></tr>
+            <tr><td>November</td><td contenteditable="true">7000</td></tr>
+            <tr><td>December</td><td contenteditable="true">6000</td></tr>
+        </tbody>
+    </table>
+    
+    <div id="chartContainer">
+        <!-- Chart will be dynamically inserted here -->
+    </div>
+</body>
+</html>

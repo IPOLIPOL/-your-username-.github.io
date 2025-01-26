@@ -11,7 +11,7 @@
         function updateChart() {
             const rows = document.querySelectorAll('#dataTable tbody tr');
             const revenues = Array.from(rows).map(row => 
-                parseInt(row.querySelector('td:nth-child(2)').textContent)
+                parseInt(row.querySelector('td:nth-child(2)').textContent)|| 0
             );
 
             const chartCode = `
@@ -27,7 +27,7 @@
         }
 
         document.getElementById('dataTable').addEventListener('input', (e) => {
-            if (e.target.tagName === 'TD') {
+            if (e.target.tagName === 'TD' && e.target.cellIndex === 1) {
                 updateChart();
             }
         });
@@ -94,29 +94,29 @@
     </main>
     <div class="table-container">
         <table id="dataTable" contenteditable="true">
-            <thead>
-                <tr>
-                    <th>Month</th>
-                    <th>Revenue</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>January</td><td contenteditable="true">5000</td></tr>
-                <tr><td>February</td><td contenteditable="true">6000</td></tr>
-                <tr><td>March</td><td contenteditable="true">7500</td></tr>
-                <tr><td>April</td><td contenteditable="true">8200</td></tr>
-                <tr><td>May</td><td contenteditable="true">9500</td></tr>
-                <tr><td>June</td><td contenteditable="true">10500</td></tr>
-                <tr><td>July</td><td contenteditable="true">11000</td></tr>
-                <tr><td>August</td><td contenteditable="true">10200</td></tr>
-                <tr><td>September</td><td contenteditable="true">9200</td></tr>
-                <tr><td>October</td><td contenteditable="true">8500</td></tr>
-                <tr><td>November</td><td contenteditable="true">7000</td></tr>
-                <tr><td>December</td><td contenteditable="true">6000</td></tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="graph-container" id="chartContainer">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>January</td><td contenteditable="true">5000</td></tr>
+            <tr><td>February</td><td contenteditable="true">6000</td></tr>
+            <tr><td>March</td><td contenteditable="true">7500</td></tr>
+            <tr><td>April</td><td contenteditable="true">8200</td></tr>
+            <tr><td>May</td><td contenteditable="true">9500</td></tr>
+            <tr><td>June</td><td contenteditable="true">10500</td></tr>
+            <tr><td>July</td><td contenteditable="true">11000</td></tr>
+            <tr><td>August</td><td contenteditable="true">10200</td></tr>
+            <tr><td>September</td><td contenteditable="true">9200</td></tr>
+            <tr><td>October</td><td contenteditable="true">8500</td></tr>
+            <tr><td>November</td><td contenteditable="true">7000</td></tr>
+            <tr><td>December</td><td contenteditable="true">6000</td></tr>
+        </tbody>
+    </table>
+    
+    <div id="chartContainer">
         <!-- Chart will be dynamically inserted here -->
     </div>
     <a href="presentation-page1.html" target="_blank">View Presentation</a>

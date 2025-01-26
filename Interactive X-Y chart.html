@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dynamic Revenue Chart</title>
+    <title>Dynamic Running hours Chart</title>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         
@@ -17,9 +17,9 @@
 
             const chartCode = `
                 xychart-beta
-                title "Sales Revenue"
+                title "Running hours"
                 x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
-                y-axis "Revenue (in $)" 4000 --> 11000
+                y-axis "Running hours (in hrs)" 0000 --> 11000
                 line [${revenues.join(', ')}]
             `;
 
@@ -67,13 +67,13 @@
     </style>
 </head>
 <body>
-    <h1>Dynamic Revenue Chart</h1>
+    <h1>Dynamic Running hours Chart</h1>
     
     <table id="dataTable">
         <thead>
             <tr>
                 <th>Month</th>
-                <th>Revenue</th>
+                <th>Running hours</th>
             </tr>
         </thead>
         <tbody>

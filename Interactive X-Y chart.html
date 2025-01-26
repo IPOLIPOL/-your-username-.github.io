@@ -6,25 +6,14 @@
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         
-        console.log('Mermaid loaded');
-        
-        mermaid.initialize({ 
-            startOnLoad: false,
-            logLevel: 'error'
-        });
+        mermaid.initialize({ startOnLoad: false });
 
         function updateChart() {
-            console.log('Update chart called');
-            
             const rows = document.querySelectorAll('#dataTable tbody tr');
             const revenues = Array.from(rows).map(row => {
                 const value = row.querySelector('td:nth-child(2)').textContent.trim();
-                const parsedValue = parseInt(value, 10);
-                console.log(`Month revenue: ${value}, Parsed: ${parsedValue}`);
-                return parsedValue || 0;
+                return parseInt(value, 10) || 0;
             });
-
-            console.log('Revenues:', revenues);
 
             const chartCode = `
                 xychart-beta
@@ -36,13 +25,7 @@
 
             const chartContainer = document.getElementById('chartContainer');
             chartContainer.innerHTML = `<div class="mermaid">${chartCode}</div>`;
-            
-            try {
-                mermaid.init();
-                console.log('Chart initialized');
-            } catch (error) {
-                console.error('Mermaid initialization error:', error);
-            }
+            mermaid.init();
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -50,9 +33,23 @@
             
             table.addEventListener('input', (e) => {
                 console.log('Input event triggered', e.target);
-                if (e.target.tagName === 'TD' && e.target.cellIndex === 1) {
-                    console.log('Updating chart');
-                    updateChart();
+                console.log('Target parent:', e.target.parentNode);
+                console.log('Cell index:', e.target.cellIndex);
+                
+                if (e.target.tagName === 'TD') {
+                    console.log('TD detected');
+                    
+                    const cell = e.target;
+                    const row = cell.parentNode;
+                    const rowCells = Array.from(row.cells);
+                    
+                    console.log('Cells in row:', rowCells);
+                    console.log('Revenue cell:', rowCells[1]);
+                    
+                    if (rowCells[1] === cell) {
+                        console.log('Revenue cell changed');
+                        updateChart();
+                    }
                 }
             });
 
@@ -61,11 +58,31 @@
         });
     </script>
     <style>
-        table { width: 100%; border-collapse: collapse; }
-        td { border: 1px solid black; padding: 5px; }
+        body { 
+            font-family: Arial; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td:nth-child(2) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
+    <h1>Dynamic Revenue Chart</h1>
+    
     <table id="dataTable" contenteditable="true">
         <thead>
             <tr>

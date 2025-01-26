@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My GitHub Pages Website</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,6 +29,11 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .graph-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
     </style>
 </head>
 <body>
@@ -42,6 +51,16 @@
             <li>Technology</li>
         </ul>
     </main>
+    <div class="graph-container">
+        <div class="mermaid">
+            xychart-beta
+            title "Sales Revenue"
+            x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+            y-axis "Revenue (in $)" 4000 --> 11000
+            bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+            line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+        </div>
+    </div>
     <a href="presentation-page1.html" target="_blank">View Presentation</a>
     <footer>
         <p>© 2024 [IPOL]. All Rights Reserved. No part of this website may be reproduced without explicit written permission.</p>

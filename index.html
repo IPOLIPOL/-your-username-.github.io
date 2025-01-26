@@ -7,6 +7,33 @@
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
+
+        function updateChart() {
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+            const revenues = Array.from(rows).map(row => 
+                parseInt(row.querySelector('td:nth-child(2)').textContent)
+            );
+
+            const chartCode = `
+                xychart-beta
+                title "Sales Revenue"
+                x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+                y-axis "Revenue (in $)" 4000 --> 11000
+                line [${revenues.join(', ')}]
+            `;
+
+            document.getElementById('chartContainer').innerHTML = `<div class="mermaid">${chartCode}</div>`;
+            mermaid.init();
+        }
+
+        document.getElementById('dataTable').addEventListener('input', (e) => {
+            if (e.target.tagName === 'TD') {
+                updateChart();
+            }
+        });
+
+        // Initial chart render
+        updateChart();
     </script>
     <style>
         body {
@@ -45,6 +72,9 @@
         th {
             background-color: #f2f2f2;
         }
+        td:nth-child(2) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -63,7 +93,7 @@
         </ul>
     </main>
     <div class="table-container">
-        <table>
+        <table id="dataTable" contenteditable="true">
             <thead>
                 <tr>
                     <th>Month</th>
@@ -71,30 +101,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td>January</td><td>5000</td></tr>
-                <tr><td>February</td><td>6000</td></tr>
-                <tr><td>March</td><td>7500</td></tr>
-                <tr><td>April</td><td>8200</td></tr>
-                <tr><td>May</td><td>9500</td></tr>
-                <tr><td>June</td><td>10500</td></tr>
-                <tr><td>July</td><td>11000</td></tr>
-                <tr><td>August</td><td>10200</td></tr>
-                <tr><td>September</td><td>9200</td></tr>
-                <tr><td>October</td><td>8500</td></tr>
-                <tr><td>November</td><td>7000</td></tr>
-                <tr><td>December</td><td>6000</td></tr>
+                <tr><td>January</td><td contenteditable="true">5000</td></tr>
+                <tr><td>February</td><td contenteditable="true">6000</td></tr>
+                <tr><td>March</td><td contenteditable="true">7500</td></tr>
+                <tr><td>April</td><td contenteditable="true">8200</td></tr>
+                <tr><td>May</td><td contenteditable="true">9500</td></tr>
+                <tr><td>June</td><td contenteditable="true">10500</td></tr>
+                <tr><td>July</td><td contenteditable="true">11000</td></tr>
+                <tr><td>August</td><td contenteditable="true">10200</td></tr>
+                <tr><td>September</td><td contenteditable="true">9200</td></tr>
+                <tr><td>October</td><td contenteditable="true">8500</td></tr>
+                <tr><td>November</td><td contenteditable="true">7000</td></tr>
+                <tr><td>December</td><td contenteditable="true">6000</td></tr>
             </tbody>
         </table>
     </div>
-    <div class="graph-container">
-        <div class="mermaid">
-            xychart-beta
-            title "Sales Revenue"
-            x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
-            y-axis "Revenue (in $)" 4000 --> 11000
-            bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
-            line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
-        </div>
+    <div class="graph-container" id="chartContainer">
+        <!-- Chart will be dynamically inserted here -->
     </div>
     <a href="presentation-page1.html" target="_blank">View Presentation</a>
     <footer>

@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Presentation - Page 1</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        mermaid.initialize({ startOnLoad: true });
+    </script>
     <style>
         body { font-family: Arial; text-align: center; }
         .nav-bar { 
@@ -19,11 +24,35 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .chart-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Presentation Page 1</h1>
-    <div>Content for Page 1</div>
+            <div class="chart-container">
+        <div class="mermaid">
+flowchart TB
+    subgraph Main[Main Deck]
+        A[MV GIS 1]
+        B[Main Trafo 1]
+        C[Shunt 1]
+        D[HV GIS 1]
+        E[MV GIS 2]
+        F[Main Trafo 2]
+        G[Shunt 2]
+        H[HV GIS 2]
+    end
+    
+    %% Arrange blocks horizontally using invisible connections
+    A---B---C---D
+    E---F---G---H
+    
+    %% Hide all connection lines
+    linkStyle 0,1,2,3,4,5 stroke:none, fill:none
+        </div>
+    </div>
     
     <div class="nav-bar">
         <a href="index.html" class="nav-button">Back to Main</a>

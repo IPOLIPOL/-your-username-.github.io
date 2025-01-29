@@ -19,11 +19,28 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .content-container {
+        width: 60%;  /* or whatever width you prefer */
+        margin-left: auto;  /* this pushes the container to the right */
+        margin-right: 20px;  /* adds some spacing from the right edge */
+        text-align: right;  /* aligns the text within the container */
+        }
+
+/* Keep lists properly aligned */
+        .content-container ul {
+        text-align: right;
+        list-style-position: inside;  /* keeps bullet points with text */
+        padding-left: 0;  /* removes default padding */
+        }
+
+        .content-container li {
+        text-align: right;
+        }
     </style>
 </head>
 <body>
     <h1>Presentation Page 3</h1>
-    <div>
+    <div class="content-container">
       <h2>Что такое база данных?</h2>
     
 <p>В общем случае база данных - это программа, позволяющая
@@ -42,7 +59,6 @@
 <li>некоторое хранилище, обычно в виде файла или файлов на жестком диске, где она сохраняет данные в том формате, который сочтет оптимальным;</li>
 <li>некоторый интерфейс для взаимодействия с ней других программ.</li>
 </ul>
-    
     </div>
     
     <div class="nav-bar">

@@ -21,7 +21,7 @@
                 title "Running hours"
                 x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
                 y-axis "Running hours (in hrs)" 0000 --> 11000
-                line color:#333333 [${revenues.join(', ')}] 
+                line [${revenues.join(', ')}]
             `;
 
             const chartContainer = document.getElementById('chartContainer');

@@ -16,11 +16,12 @@
             });
 
             const chartCode = `
+                %%{init: { 'themeVariables': { 'lineColor': '#333333' } }}%%
                 xychart-beta
                 title "Running hours"
                 x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
                 y-axis "Running hours (in hrs)" 0000 --> 11000
-                line [${revenues.join(', ')}] { color: #333333 }
+                line [${revenues.join(', ')}] 
             `;
 
             const chartContainer = document.getElementById('chartContainer');
